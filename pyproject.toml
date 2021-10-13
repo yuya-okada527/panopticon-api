@@ -16,6 +16,7 @@ pysen = {version = "^0.9.1", extras = ["lint"]}
 pytest-cov = "^3.0.0"
 requests = "^2.26.0"
 pytest-watch = "^4.2.0"
+pytest-mock = "^3.6.1"
 
 [tool.pysen]
 version = "0.9"
