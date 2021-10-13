@@ -11,6 +11,13 @@ $ make lint
 $ make format
 ```
 
+# vscode 起動
+
+```bash
+$ poetry shell
+$ code .
+```
+
 ## TODO
 
 - pysen と vscode の連携
