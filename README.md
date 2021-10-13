@@ -24,3 +24,4 @@ $ code .
 - [x] git hooks 検討
   - husky を導入
 - [ ] coverage を README に記載する方法を検討
+- fixture 的な仕組み作る
