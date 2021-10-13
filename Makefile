@@ -5,4 +5,4 @@ lint:
 format:
 	poetry run pysen run format
 test:
-	poetry run pytest src/tests
+	poetry run pytest src/tests -v --cov=src/app

@@ -12,6 +12,7 @@ uvicorn = "^0.15.0"
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 pysen = {version = "^0.9.1", extras = ["lint"]}
+pytest-cov = "^3.0.0"
 
 [tool.pysen]
 version = "0.9"

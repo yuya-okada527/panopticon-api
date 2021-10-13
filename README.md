@@ -23,3 +23,4 @@ $ code .
 - [ ] pysen と vscode の連携
 - [x] git hooks 検討
   - husky を導入
+- [ ] coverage を README に記載する方法を検討
