@@ -1,5 +1,7 @@
 # Panopricon API
 
+[![codecov](https://codecov.io/gh/yuya-okada527/panopticon-api/branch/develop/graph/badge.svg?token=TOP597U2QH)](https://codecov.io/gh/yuya-okada527/panopticon-api)
+
 ## 起動コマンド
 
 ```bash
