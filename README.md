@@ -9,6 +9,10 @@ $ make
 $ make lint
 # formater起動
 $ make format
+# test実行
+$ make test
+# test watch
+$ make watch
 ```
 
 # vscode 起動

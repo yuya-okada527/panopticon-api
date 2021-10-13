@@ -6,3 +6,5 @@ format:
 	poetry run pysen run format
 test:
 	poetry run pytest src/tests -v --cov=src/app
+watch:
+	poetry run ptw src/tests
