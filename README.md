@@ -20,5 +20,6 @@ $ code .
 
 ## TODO
 
-- pysen と vscode の連携
-- git hooks 検討
+- [ ] pysen と vscode の連携
+- [x] git hooks 検討
+  - husky を導入
