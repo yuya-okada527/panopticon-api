@@ -1,5 +1,13 @@
 {
   "private": true,
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.py": [
+      "make format"
+    ]
+  },
   "devDependencies": {
     "husky": "^7.0.2",
     "lint-staged": "^11.2.3"
