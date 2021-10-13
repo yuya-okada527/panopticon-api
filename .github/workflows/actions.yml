@@ -1,0 +1,30 @@
+name: API
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+jobs:
+  check:
+    name: Check the source code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install Poetry
+        run: |
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+      - name: Add path for Poetry
+        run: echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+      - name: Install Dependencies
+        run: poetry install
+      - name: Lint
+        run: make lint
+      - name: Test
+        run: make test
