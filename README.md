@@ -27,6 +27,7 @@ $ code .
 ## TODO
 
 - [ ] pysen と vscode の連携
+- [ ] pysen があんまり、イケテナイので、個別の設定を検討する
 - [x] git hooks 検討
   - husky を導入
 - [x] coverage を README に記載する方法を検討
