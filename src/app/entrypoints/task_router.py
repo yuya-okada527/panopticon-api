@@ -26,3 +26,8 @@ async def create_task(*, task: TaskCreate):
 @router.put("/{task_id}", response_model=MutationResponse)
 async def update_task(*, task_id: int = Path(..., ge=0), task: TaskUpdate):
     return {"id": 0}
+
+
+@router.delete("/{task_id}", response_model=MutationResponse)
+async def delete_task(*, task_id: int = Path(..., ge=0)):
+    return {"id": 0}

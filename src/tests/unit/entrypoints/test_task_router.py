@@ -81,3 +81,17 @@ def test_update_task_422_data(test_client: TestClient, data):
     assert (
         test_client.put(f"{TASK_API_PATH}/1", json.dumps(data)).status_code == 422
     ), f"data={data} must be invalid"
+
+
+@pytest.mark.parametrize("path", [0])
+def test_delete_task_200(test_client: TestClient, path):
+    assert (
+        test_client.delete(f"{TASK_API_PATH}/{path}").status_code == 200
+    ), f"path={path} must be valid"
+
+
+@pytest.mark.parametrize("path", [-1, "test"])
+def test_delete_task_422(test_client: TestClient, path):
+    assert (
+        test_client.delete(f"{TASK_API_PATH}/{path}").status_code == 422
+    ), f"path={path} must be invalid"
