@@ -36,6 +36,7 @@ def test_create_task_200(test_client: TestClient, data):
     [
         {},
         {"name": ""},
+        {"name": " \n\t\r\n"},
         {"status": "todo"},
         {"name": "a" * 65},
         {"name": "test", "status": "test"},
