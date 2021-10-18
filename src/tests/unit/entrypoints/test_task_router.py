@@ -62,7 +62,7 @@ def test_update_task_200_data(test_client: TestClient, data):
     ), f"data={data} must be valid data"
 
 
-@pytest.mark.parametrize("data", [{"name": ""}, {"status": "test"}])
+@pytest.mark.parametrize("data", [{"name": ""}, {"status": "test"}, {"name": " "}])
 def test_update_task_422_data(test_client: TestClient, data):
     assert (
         test_client.put(f"{TASK_API_PATH}/1", json.dumps(data)).status_code == 422
