@@ -1,5 +1,6 @@
 from typing import Optional
 
+from entrypoints.messages.base_message import MutationResponse
 from entrypoints.messages.task_message import SearchTasksResponse
 from fastapi import APIRouter
 from fastapi.params import Query
@@ -16,6 +17,6 @@ async def search_tasks(
     return {"page": 0, "available_page": 0, "num": 0, "hit_num": 0, "results": []}
 
 
-@router.post("")
+@router.post("", response_model=MutationResponse)
 async def create_task():
-    return {}
+    return {"id": 0}
