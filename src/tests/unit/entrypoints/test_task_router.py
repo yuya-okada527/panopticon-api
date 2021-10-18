@@ -10,14 +10,14 @@ from tests.utils import TASK_API_PATH, make_url
 def test_search_tasks_200(test_client: TestClient, params):
     assert (
         test_client.get(make_url(TASK_API_PATH, params)).status_code == 200
-    ), f"params={params} must be valid params"
+    ), f"params={params} must be valid"
 
 
 @pytest.mark.parametrize("params", [["page=str"], ["page=-1"], ["num=-1"], ["num=101"]])
 def test_search_tasks_422(test_client: TestClient, params):
     assert (
         test_client.get(make_url(TASK_API_PATH, params)).status_code == 422
-    ), f"params={params} must be invalid params"
+    ), f"params={params} must be invalid"
 
 
 @pytest.mark.parametrize(
@@ -32,7 +32,7 @@ def test_search_tasks_422(test_client: TestClient, params):
 def test_create_task_200(test_client: TestClient, data):
     assert (
         test_client.post(TASK_API_PATH, json.dumps(data)).status_code == 200
-    ), f"data={data} must be valid data"
+    ), f"data={data} must be valid"
 
 
 @pytest.mark.parametrize(
@@ -49,7 +49,7 @@ def test_create_task_200(test_client: TestClient, data):
 def test_create_task_422(test_client: TestClient, data):
     assert (
         test_client.post(TASK_API_PATH, json.dumps(data)).status_code == 422
-    ), f"data={data} must be invalid data"
+    ), f"data={data} must be invalid"
 
 
 @pytest.mark.parametrize(
@@ -59,11 +59,25 @@ def test_create_task_422(test_client: TestClient, data):
 def test_update_task_200_data(test_client: TestClient, data):
     assert (
         test_client.put(f"{TASK_API_PATH}/1", json.dumps(data)).status_code == 200
-    ), f"data={data} must be valid data"
+    ), f"data={data} must be valid"
+
+
+@pytest.mark.parametrize("path", [0])
+def test_update_task_200_path(test_client: TestClient, path):
+    assert (
+        test_client.put(f"{TASK_API_PATH}/{path}", json.dumps({})).status_code == 200
+    ), f"path={path} must be valid"
+
+
+@pytest.mark.parametrize("path", [-1, "test"])
+def test_update_tasl_422_path(test_client: TestClient, path):
+    assert (
+        test_client.put(f"{TASK_API_PATH}/{path}", json.dumps({})).status_code == 422
+    ), f"path={path} must be invalid"
 
 
 @pytest.mark.parametrize("data", [{"name": ""}, {"status": "test"}, {"name": " "}])
 def test_update_task_422_data(test_client: TestClient, data):
     assert (
         test_client.put(f"{TASK_API_PATH}/1", json.dumps(data)).status_code == 422
-    ), f"data={data} must be invalid data"
+    ), f"data={data} must be invalid"
