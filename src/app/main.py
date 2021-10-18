@@ -1,7 +1,9 @@
 from entrypoints import task_router
 from fastapi import FastAPI
 
-app = FastAPI()
+app = FastAPI(
+    title="Panopticon API", description="セルフモニタリングツールPanopticonのためのAPI", version="v1"
+)
 
 ##############
 # ルータ定義
