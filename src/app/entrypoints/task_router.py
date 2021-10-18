@@ -14,3 +14,8 @@ async def search_tasks(
     num: Optional[int] = Query(10, ge=0, le=100),
 ):
     return {"page": 0, "available_page": 0, "num": 0, "hit_num": 0, "results": []}
+
+
+@router.post("")
+async def create_task():
+    return {}
