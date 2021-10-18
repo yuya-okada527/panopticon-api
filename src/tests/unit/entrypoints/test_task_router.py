@@ -23,7 +23,11 @@ def test_search_tasks_422(test_client: TestClient, params):
 @pytest.mark.parametrize(
     "data",
     [{"name": "test", "status": status.value} for status in TaskStatusEnum]
-    + [{"name": "a", "status": "todo"}, {"name": "a" * 64, "status": "todo"}],
+    + [
+        {"name": "a", "status": "todo"},
+        {"name": "a" * 64, "status": "todo"},
+        {"name": "a b", "status": "todo"},
+    ],
 )
 def test_create_task_200(test_client: TestClient, data):
     assert (
