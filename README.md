@@ -32,4 +32,5 @@ $ code .
   - husky を導入
 - [x] coverage を README に記載する方法を検討
   - Codecov を導入
-- fixture 的な仕組み作る
+- [ ] fixture 的な仕組み作る
+- [ ] validation がやや重複するのが嫌

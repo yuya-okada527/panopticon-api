@@ -50,3 +50,20 @@ def test_create_task_422(test_client: TestClient, data):
     assert (
         test_client.post(TASK_API_PATH, json.dumps(data)).status_code == 422
     ), f"data={data} must be invalid data"
+
+
+@pytest.mark.parametrize(
+    "data",
+    [{}, {"name": "test"}, {"status": "todo"}, {"name": "test", "status": "doing"}],
+)
+def test_update_task_200_data(test_client: TestClient, data):
+    assert (
+        test_client.put(f"{TASK_API_PATH}/1", json.dumps(data)).status_code == 200
+    ), f"data={data} must be valid data"
+
+
+@pytest.mark.parametrize("data", [{"name": ""}, {"status": "test"}])
+def test_update_task_422_data(test_client: TestClient, data):
+    assert (
+        test_client.put(f"{TASK_API_PATH}/1", json.dumps(data)).status_code == 422
+    ), f"data={data} must be invalid data"

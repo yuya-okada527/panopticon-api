@@ -1,10 +1,10 @@
 from typing import Optional
 
-from domain.models.task_model import TaskCreate
+from domain.models.task_model import TaskCreate, TaskUpdate
 from entrypoints.messages.base_message import MutationResponse
 from entrypoints.messages.task_message import SearchTasksResponse
 from fastapi import APIRouter
-from fastapi.params import Query
+from fastapi.params import Path, Query
 
 router = APIRouter(prefix="/v1/tasks", tags=["tasks"])
 
@@ -20,4 +20,9 @@ async def search_tasks(
 
 @router.post("", response_model=MutationResponse)
 async def create_task(*, task: TaskCreate):
+    return {"id": 0}
+
+
+@router.put("/{task_id}", response_model=MutationResponse)
+async def update_task(*, task_id: int = Path(..., ge=0), task: TaskUpdate):
     return {"id": 0}
