@@ -2,6 +2,7 @@ run:
 	uvicorn src.app.main:app --reload
 lint:
 	poetry run pysen run lint
+	poetry run flake8 src
 format:
 	poetry run pysen run format
 test:
