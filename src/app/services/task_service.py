@@ -1,7 +1,11 @@
 from typing import List, Tuple
 
+from sqlmodel import Session
 
-def search_tasks_service(*, offset: int, limit: int) -> Tuple[List, int]:
+
+def search_tasks_service(
+    *, session: Session, offset: int, limit: int
+) -> Tuple[List, int]:
     """タスクを検索する
 
     Returns:

@@ -1,3 +1,4 @@
+from core.config import CORE_SETTINGS, EnvEnum
 from domain.models.task_model import create_db_and_tables
 from entrypoints import task_router
 from fastapi import FastAPI
@@ -17,5 +18,5 @@ app.include_router(task_router.router)
 ##################
 @app.on_event("startup")
 def on_startup():
-    # TODO 本番環境では、マイグレーションするように変更
-    create_db_and_tables()
+    if CORE_SETTINGS.env == EnvEnum.LOCAL:
+        create_db_and_tables()
