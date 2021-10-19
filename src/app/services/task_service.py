@@ -26,3 +26,12 @@ def update_task_service() -> int:
         int: タスクID
     """
     return 0
+
+
+def delete_task_service() -> int:
+    """タスクを削除する
+
+    Returns:
+        int: タスクID
+    """
+    return 0

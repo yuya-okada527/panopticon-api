@@ -7,6 +7,7 @@ from fastapi import APIRouter
 from fastapi.params import Path, Query
 from services.task_service import (
     create_task_service,
+    delete_task_service,
     search_tasks_service,
     update_task_service,
 )
@@ -44,4 +45,5 @@ async def update_task(*, task_id: int = Path(..., ge=0), task: TaskUpdate):
 
 @router.delete("/{task_id}", response_model=MutationResponse)
 async def delete_task(*, task_id: int = Path(..., ge=0)):
-    return {"id": 0}
+    delete_task_service()
+    return {"id": task_id}
