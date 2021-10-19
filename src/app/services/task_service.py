@@ -1,17 +1,20 @@
 from typing import List, Tuple
 
-from sqlmodel import Session
+from domain.models.task_model import Task
+from sqlmodel import Session, select
 
 
 def search_tasks_service(
     *, session: Session, offset: int, limit: int
-) -> Tuple[List, int]:
+) -> Tuple[List[Task], int]:
     """タスクを検索する
 
     Returns:
         Tuple[List, int]: タスクリスト, ヒット数
     """
-    return [], 0
+    results = session.exec(select(Task)).all()
+    # TODO countのクエリを作る
+    return results, len(results)
 
 
 def create_task_service() -> int:

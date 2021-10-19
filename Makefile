@@ -1,4 +1,5 @@
 run:
+	# 最初に削除する必要あり
 	python src/resources/seeds.py
 	uvicorn src.app.main:app --reload
 lint:
