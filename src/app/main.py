@@ -1,5 +1,3 @@
-from core.config import CORE_SETTINGS, EnvEnum
-from domain.models.task_model import create_db_and_tables
 from entrypoints import task_router
 from fastapi import FastAPI
 
