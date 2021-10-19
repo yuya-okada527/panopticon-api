@@ -1,5 +1,4 @@
 import json
-from typing import Dict, List
 
 import pytest
 from domain.enums.task_enum import TaskStatusEnum
