@@ -1,7 +1,7 @@
 from typing import Optional
 
 from domain.models.task_model import TaskCreate, TaskUpdate
-from entrypoints.helper.base_helper import calc_available_page
+from entrypoints.helper.base_helper import calc_available_page, calc_offset
 from entrypoints.messages.base_message import MutationResponse
 from entrypoints.messages.task_message import SearchTasksResponse
 from fastapi import APIRouter
@@ -22,7 +22,7 @@ async def search_tasks(
     page: Optional[int] = Query(1, ge=1, description="ページ数(0始まり)"),
     num: Optional[int] = Query(10, ge=0, le=100, description="取得件数"),
 ):
-    results, hit_num = search_tasks_service()
+    results, hit_num = search_tasks_service(offset=calc_offset(page, num), limit=num)
     return {
         "page": page,
         "available_page": calc_available_page(num, hit_num),

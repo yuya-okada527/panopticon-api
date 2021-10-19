@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
 
-def search_tasks_service() -> Tuple[List, int]:
+def search_tasks_service(*, offset: int, limit: int) -> Tuple[List, int]:
     """タスクを検索する
 
     Returns:
