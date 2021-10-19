@@ -9,4 +9,4 @@ class DBSettings(BaseSettings):
         env_file = "env/db.env"
 
 
-db_settings = DBSettings()
+DB_SETTINGS = DBSettings()

@@ -4,3 +4,4 @@
 *.pytest_cache/
 *node_modules/
 *.coverage
+db/database.db

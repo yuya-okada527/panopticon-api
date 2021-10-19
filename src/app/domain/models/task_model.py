@@ -1,8 +1,18 @@
 from typing import Optional
 
+from core.config import DB_SETTINGS
 from domain.enums.task_enum import TaskStatusEnum
 from pydantic import validator
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, Session, SQLModel, create_engine
+
+# DBエンジン
+ENGINE = create_engine(DB_SETTINGS.db_url, echo=DB_SETTINGS.echo)
+
+
+class Task(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str
+    status: str
 
 
 class TaskCreate(SQLModel):
@@ -25,3 +35,13 @@ class TaskUpdate(SQLModel):
         if v and v.strip() == "":
             raise ValueError("must not be blank")
         return v
+
+
+def create_db_and_tables():
+    SQLModel.metadata.create_all(ENGINE)
+    # TODO 初期データ作成
+
+
+async def get_session():
+    with Session(ENGINE) as session:
+        yield session
