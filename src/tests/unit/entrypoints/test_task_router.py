@@ -1,13 +1,17 @@
 import json
+from typing import List
 
 import pytest
 from domain.enums.task_enum import TaskStatusEnum
 from fastapi.testclient import TestClient
 from tests.utils import TASK_API_PATH, make_url
 
+MODULE_PATH = "entrypoints.task_router"
+
 
 @pytest.mark.parametrize("params", [[], ["page=0"], ["num=0"], ["num=100"]])
-def test_search_tasks_200(test_client: TestClient, params):
+def test_search_tasks_200(test_client: TestClient, mocker, params: List[str]):
+    mocker.patch(f"{MODULE_PATH}.search_tasks_service", return_value=[[], 0])
     assert (
         test_client.get(make_url(TASK_API_PATH, params)).status_code == 200
     ), f"params={params} must be valid"
