@@ -8,3 +8,12 @@ def search_tasks_service() -> Tuple[List, int]:
         Tuple[List, int]: タスクリスト, ヒット数
     """
     return [], 0
+
+
+def create_task_service() -> int:
+    """タスクを作成する
+
+    Returns:
+        int: タスクID
+    """
+    return 0

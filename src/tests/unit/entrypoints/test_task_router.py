@@ -1,5 +1,5 @@
 import json
-from typing import List
+from typing import Dict, List
 
 import pytest
 from domain.enums.task_enum import TaskStatusEnum
@@ -33,7 +33,8 @@ def test_search_tasks_422(test_client: TestClient, params):
         {"name": "a b", "status": "todo"},
     ],
 )
-def test_create_task_200(test_client: TestClient, data):
+def test_create_task_200(test_client: TestClient, mocker, data: Dict):
+    mocker.patch(f"{MODULE_PATH}.create_task_service", return_value=0)
     assert (
         test_client.post(TASK_API_PATH, json.dumps(data)).status_code == 200
     ), f"data={data} must be valid"
