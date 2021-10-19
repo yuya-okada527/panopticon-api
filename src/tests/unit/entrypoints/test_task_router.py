@@ -9,7 +9,7 @@ from tests.utils import TASK_API_PATH, make_url
 MODULE_PATH = "entrypoints.task_router"
 
 
-@pytest.mark.parametrize("params", [[], ["page=0"], ["num=0"], ["num=100"]])
+@pytest.mark.parametrize("params", [[], ["page=1"], ["num=0"], ["num=100"]])
 def test_search_tasks_200(test_client: TestClient, mocker, params):
     mocker.patch(f"{MODULE_PATH}.search_tasks_service", return_value=[[], 0])
     assert (
@@ -17,7 +17,9 @@ def test_search_tasks_200(test_client: TestClient, mocker, params):
     ), f"params={params} must be valid"
 
 
-@pytest.mark.parametrize("params", [["page=str"], ["page=-1"], ["num=-1"], ["num=101"]])
+@pytest.mark.parametrize(
+    "params", [["page=str"], ["page=0"], ["page=-1"], ["num=-1"], ["num=101"]]
+)
 def test_search_tasks_422(test_client: TestClient, params):
     assert (
         test_client.get(make_url(TASK_API_PATH, params)).status_code == 422
