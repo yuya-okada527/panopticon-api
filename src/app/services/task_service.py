@@ -12,7 +12,7 @@ def search_tasks_service(
     Returns:
         Tuple[List, int]: タスクリスト, ヒット数
     """
-    results = session.exec(select(Task)).all()
+    results = session.exec(select(Task).offset(offset).limit(limit)).all()
     # TODO countのクエリを作る
     return results, len(results)
 
