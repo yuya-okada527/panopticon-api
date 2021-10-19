@@ -17,3 +17,12 @@ def create_task_service() -> int:
         int: タスクID
     """
     return 0
+
+
+def update_task_service() -> int:
+    """タスクを更新する
+
+    Returns:
+        int: タスクID
+    """
+    return 0

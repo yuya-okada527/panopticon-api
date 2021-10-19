@@ -10,7 +10,7 @@ MODULE_PATH = "entrypoints.task_router"
 
 
 @pytest.mark.parametrize("params", [[], ["page=0"], ["num=0"], ["num=100"]])
-def test_search_tasks_200(test_client: TestClient, mocker, params: List[str]):
+def test_search_tasks_200(test_client: TestClient, mocker, params):
     mocker.patch(f"{MODULE_PATH}.search_tasks_service", return_value=[[], 0])
     assert (
         test_client.get(make_url(TASK_API_PATH, params)).status_code == 200
@@ -33,7 +33,7 @@ def test_search_tasks_422(test_client: TestClient, params):
         {"name": "a b", "status": "todo"},
     ],
 )
-def test_create_task_200(test_client: TestClient, mocker, data: Dict):
+def test_create_task_200(test_client: TestClient, mocker, data):
     mocker.patch(f"{MODULE_PATH}.create_task_service", return_value=0)
     assert (
         test_client.post(TASK_API_PATH, json.dumps(data)).status_code == 200
@@ -61,14 +61,16 @@ def test_create_task_422(test_client: TestClient, data):
     "data",
     [{}, {"name": "test"}, {"status": "todo"}, {"name": "test", "status": "doing"}],
 )
-def test_update_task_200_data(test_client: TestClient, data):
+def test_update_task_200_data(test_client: TestClient, mocker, data):
+    mocker.patch(f"{MODULE_PATH}.update_task_service", return_value=0)
     assert (
         test_client.put(f"{TASK_API_PATH}/1", json.dumps(data)).status_code == 200
     ), f"data={data} must be valid"
 
 
 @pytest.mark.parametrize("path", [0])
-def test_update_task_200_path(test_client: TestClient, path):
+def test_update_task_200_path(test_client: TestClient, mocker, path):
+    mocker.patch(f"{MODULE_PATH}.update_task_service", return_value=0)
     assert (
         test_client.put(f"{TASK_API_PATH}/{path}", json.dumps({})).status_code == 200
     ), f"path={path} must be valid"

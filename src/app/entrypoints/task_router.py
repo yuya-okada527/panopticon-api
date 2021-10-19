@@ -5,7 +5,11 @@ from entrypoints.messages.base_message import MutationResponse
 from entrypoints.messages.task_message import SearchTasksResponse
 from fastapi import APIRouter
 from fastapi.params import Path, Query
-from services.task_service import search_tasks_service
+from services.task_service import (
+    create_task_service,
+    search_tasks_service,
+    update_task_service,
+)
 
 router = APIRouter(prefix="/v1/tasks", tags=["tasks"])
 
@@ -28,12 +32,14 @@ async def search_tasks(
 
 @router.post("", response_model=MutationResponse)
 async def create_task(*, task: TaskCreate):
-    return {"id": 0}
+    task_id = create_task_service()
+    return {"id": task_id}
 
 
 @router.put("/{task_id}", response_model=MutationResponse)
 async def update_task(*, task_id: int = Path(..., ge=0), task: TaskUpdate):
-    return {"id": 0}
+    update_task_service()
+    return {"id": task_id}
 
 
 @router.delete("/{task_id}", response_model=MutationResponse)
