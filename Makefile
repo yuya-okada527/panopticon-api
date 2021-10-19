@@ -1,4 +1,5 @@
 run:
+	python src/resources/seeds.py
 	uvicorn src.app.main:app --reload
 lint:
 	poetry run pysen run lint

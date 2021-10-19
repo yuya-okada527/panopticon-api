@@ -11,12 +11,3 @@ app = FastAPI(
 # ルータ定義
 ##################
 app.include_router(task_router.router)
-
-
-##################
-# 起動イベント定義
-##################
-@app.on_event("startup")
-def on_startup():
-    if CORE_SETTINGS.env == EnvEnum.LOCAL:
-        create_db_and_tables()

@@ -37,8 +37,8 @@ class TaskUpdate(SQLModel):
         return v
 
 
-def create_db_and_tables():
-    SQLModel.metadata.create_all(ENGINE)
+def create_db_and_tables(engine):
+    SQLModel.metadata.create_all(engine)
     # TODO 初期データ作成
 
 

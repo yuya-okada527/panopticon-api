@@ -2,6 +2,7 @@ import pytest
 from app.main import app
 from domain.models.task_model import get_session
 from fastapi.testclient import TestClient
+from resources.seeds import seed_tables
 from sqlmodel.engine.create import create_engine
 from sqlmodel.main import SQLModel
 from sqlmodel.orm.session import Session
@@ -15,7 +16,7 @@ def session_fixture():
     )
     SQLModel.metadata.create_all(engine)
     with Session(engine) as session:
-        # TODO 初期データの投入
+        seed_tables(session)
         yield session
 
 
