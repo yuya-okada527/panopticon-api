@@ -113,15 +113,18 @@ def test_read_task_200(test_client: TestClient, mocker, path):
         f"{MODULE_PATH}.read_task_service",
         return_value=Task(id=1, name="name", status="todo"),
     )
-    print(test_client.get(f"{TASK_API_PATH}/{path}"))
     assert (
         test_client.get(f"{TASK_API_PATH}/{path}").status_code == 200
     ), f"path={path} must be invalid"
 
 
+def test_read_task_404(test_client: TestClient, mocker):
+    mocker.patch(f"{MODULE_PATH}.read_task_service", return_value=None)
+    assert test_client.get(f"{TASK_API_PATH}/1").status_code == 404
+
+
 @pytest.mark.parametrize("path", [-1, "str"])
 def test_read_task_422(test_client: TestClient, path):
-    print(test_client.get(f"{TASK_API_PATH}/{path}"))
     assert (
         test_client.get(f"{TASK_API_PATH}/{path}").status_code == 422
     ), f"path={path} must be invalid"

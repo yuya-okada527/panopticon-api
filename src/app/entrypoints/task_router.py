@@ -4,7 +4,7 @@ from domain.models.task_model import Task, TaskCreate, TaskUpdate, get_session
 from entrypoints.helper.base_helper import calc_available_page, calc_offset
 from entrypoints.messages.base_message import MutationResponse
 from entrypoints.messages.task_message import SearchTasksResponse
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from fastapi.params import Depends, Path, Query
 from services.task_service import (
     create_task_service,
@@ -47,8 +47,9 @@ async def create_task(*, session: Session = Depends(get_session), task: TaskCrea
 async def read_task(
     *, session: Session = Depends(get_session), task_id: int = Path(..., ge=0)
 ):
-    # TODO ターゲットなしの場合、404を返す
     target_task = read_task_service(session=session, task_id=task_id)
+    if target_task is None:
+        raise HTTPException(status_code=404, detail=f"task(id={task_id}) not found")
     return target_task
 
 
