@@ -1,6 +1,6 @@
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
-from domain.models.task_model import Task, TaskCreate
+from domain.models.task_model import Task, TaskCreate, TaskUpdate
 from sqlmodel import Session, select
 
 
@@ -30,13 +30,22 @@ def create_task_service(*, session: Session, task: TaskCreate) -> int:
     return new_task.id
 
 
-def update_task_service() -> int:
+def update_task_service(
+    *, session: Session, task_id: int, task: TaskUpdate
+) -> Optional[int]:
     """タスクを更新する
 
     Returns:
         int: タスクID
     """
-    return 0
+    target = session.get(Task, task_id)
+    if not target:
+        return None
+    for key, value in task.dict(exclude_unset=True).items():
+        setattr(target, key, value)
+    session.add(target)
+    session.commit()
+    return task_id
 
 
 def delete_task_service() -> int:

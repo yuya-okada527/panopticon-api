@@ -1,6 +1,10 @@
 import pytest
-from domain.models.task_model import Task, TaskCreate
-from services.task_service import create_task_service, search_tasks_service
+from domain.models.task_model import Task, TaskCreate, TaskUpdate
+from services.task_service import (
+    create_task_service,
+    search_tasks_service,
+    update_task_service,
+)
 from sqlmodel import Session
 
 
@@ -22,3 +26,16 @@ def test_create_task_service(session: Session):
     expected = task.dict()
     expected["id"] = task_id
     assert expected == db_task.dict()
+
+
+def test_update_task_service_exist_task(session: Session):
+    target_task = Task(name="name", status="todo")
+    session.add(target_task)
+    session.commit()
+    session.refresh(target_task)
+    update_task_service(
+        session=session, task_id=1, task=TaskUpdate.validate({"status": "doing"})
+    )
+    session.refresh(target_task)
+    assert target_task.status == "doing"
+    assert target_task.name == "name"
