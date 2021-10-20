@@ -1,6 +1,6 @@
 import pytest
-from domain.models.task_model import Task
-from services.task_service import search_tasks_service
+from domain.models.task_model import Task, TaskCreate
+from services.task_service import create_task_service, search_tasks_service
 from sqlmodel import Session
 
 
@@ -13,3 +13,12 @@ def test_search_tasks_service_offset_limit(session: Session, args):
     session.commit()
     _, hit_num = search_tasks_service(session=session, offset=offset, limit=limit)
     assert hit_num == expected
+
+
+def test_create_task_service(session: Session):
+    task = TaskCreate(name="name", status="todo")
+    task_id = create_task_service(session=session, task=task)
+    db_task = session.get(Task, task_id)
+    expected = task.dict()
+    expected["id"] = task_id
+    assert expected == db_task.dict()

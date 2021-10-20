@@ -1,6 +1,6 @@
 from typing import List, Tuple
 
-from domain.models.task_model import Task
+from domain.models.task_model import Task, TaskCreate
 from sqlmodel import Session, select
 
 
@@ -17,13 +17,17 @@ def search_tasks_service(
     return results, len(results)
 
 
-def create_task_service() -> int:
+def create_task_service(*, session: Session, task: TaskCreate) -> int:
     """タスクを作成する
 
     Returns:
         int: タスクID
     """
-    return 0
+    new_task = Task.from_orm(task)
+    session.add(new_task)
+    session.commit()
+    session.refresh(new_task)
+    return new_task.id
 
 
 def update_task_service() -> int:
