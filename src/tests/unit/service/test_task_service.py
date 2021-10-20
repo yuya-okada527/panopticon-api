@@ -3,6 +3,7 @@ from domain.models.task_model import Task, TaskCreate, TaskUpdate
 from services.task_service import (
     create_task_service,
     delete_task_service,
+    read_task_service,
     search_tasks_service,
     update_task_service,
 )
@@ -27,6 +28,14 @@ def test_create_task_service(session: Session):
     expected = task.dict()
     expected["id"] = task_id
     assert expected == db_task.dict()
+
+
+def test_read_service(session: Session):
+    target_task = Task(name="name", status="todo")
+    session.add(target_task)
+    session.commit()
+    session.refresh(target_task)
+    assert read_task_service(session=session, task_id=1) == target_task
 
 
 def test_update_task_service_exist_task(session: Session):
