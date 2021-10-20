@@ -53,5 +53,11 @@ def test_update_task_service_non_exist_task(session: Session):
 def test_delete_task_service_target_exist(session: Session):
     session.add(Task(name="name", status="todo"))
     session.commit()
-    delete_task_service(session=session, task_id=1)
+    task_id = delete_task_service(session=session, task_id=1)
+    assert task_id == 1
     assert session.get(Task, 1) == None
+
+
+def test_delete_task_service_if_target_not_exist(session: Session):
+    task_id = delete_task_service(session=session, task_id=1)
+    assert task_id == None

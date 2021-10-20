@@ -43,9 +43,14 @@ async def create_task(*, session: Session = Depends(get_session), task: TaskCrea
 
 
 @router.put("/{task_id}", response_model=MutationResponse)
-async def update_task(*, task_id: int = Path(..., ge=0), task: TaskUpdate):
-    update_task_service()
-    return {"id": task_id}
+async def update_task(
+    *,
+    session: Session = Depends(get_session),
+    task_id: int = Path(..., ge=0),
+    task: TaskUpdate,
+):
+    target_id = update_task_service(session=session, task_id=task_id, task=task)
+    return {"id": target_id}
 
 
 @router.delete("/{task_id}", response_model=MutationResponse)
