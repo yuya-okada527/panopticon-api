@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 
@@ -16,4 +18,4 @@ class SearchResponse(BaseModel):
 class MutationResponse(BaseModel):
     "更新APIの共通レスポンス"
     # 更新対象ID
-    id: int
+    id: Optional[int]
