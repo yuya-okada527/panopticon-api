@@ -2,6 +2,7 @@ import pytest
 from domain.models.task_model import Task, TaskCreate, TaskUpdate
 from services.task_service import (
     create_task_service,
+    delete_task_service,
     search_tasks_service,
     update_task_service,
 )
@@ -47,3 +48,10 @@ def test_update_task_service_non_exist_task(session: Session):
         session=session, task_id=1, task=TaskUpdate.validate({"status": "doing"})
     )
     assert task_id == None
+
+
+def test_delete_task_service_target_exist(session: Session):
+    session.add(Task(name="name", status="todo"))
+    session.commit()
+    delete_task_service(session=session, task_id=1)
+    assert session.get(Task, 1) == None

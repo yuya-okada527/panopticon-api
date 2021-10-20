@@ -48,10 +48,15 @@ def update_task_service(
     return task_id
 
 
-def delete_task_service() -> int:
+def delete_task_service(*, session: Session, task_id: int) -> Optional[int]:
     """タスクを削除する
 
     Returns:
         int: タスクID
     """
-    return 0
+    target = session.get(Task, task_id)
+    if not target:
+        return None
+    session.delete(target)
+    session.commit()
+    return task_id
