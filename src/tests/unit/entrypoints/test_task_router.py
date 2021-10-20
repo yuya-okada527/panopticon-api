@@ -104,3 +104,11 @@ def test_delete_task_422(test_client: TestClient, path):
     assert (
         test_client.delete(f"{TASK_API_PATH}/{path}").status_code == 422
     ), f"path={path} must be invalid"
+
+
+@pytest.mark.parametrize("path", [1])
+def test_read_task_200(test_client: TestClient, mocker, path):
+    # mocker.patch(f"{TASK_API_PATH}.read_task_service", return_value={"id": 0, "name": "name", "status": "todo"})
+    assert (
+        test_client.get(f"{TASK_API_PATH}/{path}").status_code == 200
+    ), f"path={path} must be invalid"

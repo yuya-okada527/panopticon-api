@@ -1,6 +1,6 @@
 from typing import Optional
 
-from domain.models.task_model import TaskCreate, TaskUpdate, get_session
+from domain.models.task_model import Task, TaskCreate, TaskUpdate, get_session
 from entrypoints.helper.base_helper import calc_available_page, calc_offset
 from entrypoints.messages.base_message import MutationResponse
 from entrypoints.messages.task_message import SearchTasksResponse
@@ -9,6 +9,7 @@ from fastapi.params import Depends, Path, Query
 from services.task_service import (
     create_task_service,
     delete_task_service,
+    read_task_service,
     search_tasks_service,
     update_task_service,
 )
@@ -42,6 +43,15 @@ async def create_task(*, session: Session = Depends(get_session), task: TaskCrea
     return {"id": task_id}
 
 
+@router.get("/{task_id}", response_model=Task)
+async def read_task(
+    *, session: Session = Depends(get_session), task_id: int = Path(..., ge=0)
+):
+    # TODO ターゲットなしの場合、404を返す
+    target_task = read_task_service(session=session, task_id=task_id)
+    return target_task
+
+
 @router.put("/{task_id}", response_model=MutationResponse)
 async def update_task(
     *,
@@ -49,6 +59,7 @@ async def update_task(
     task_id: int = Path(..., ge=0),
     task: TaskUpdate,
 ):
+    # TODO ターゲットなしの場合、404を返す
     target_id = update_task_service(session=session, task_id=task_id, task=task)
     return {"id": target_id}
 
@@ -57,5 +68,6 @@ async def update_task(
 async def delete_task(
     *, session: Session = Depends(get_session), task_id: int = Path(..., ge=0)
 ):
+    # TODO ターゲットなしの場合、404を返す
     deleted_id = delete_task_service(session=session, task_id=task_id)
     return {"id": deleted_id}

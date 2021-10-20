@@ -17,6 +17,15 @@ def search_tasks_service(
     return results, len(results)
 
 
+def read_task_service(*, session: Session, task_id: int) -> Optional[Task]:
+    """タスクを取得する
+
+    Returns:
+        Optional[Task]: タスク
+    """
+    return session.get(Task, task_id)
+
+
 def create_task_service(*, session: Session, task: TaskCreate) -> int:
     """タスクを作成する
 
