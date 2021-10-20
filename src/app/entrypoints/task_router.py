@@ -60,8 +60,9 @@ async def update_task(
     task_id: int = Path(..., ge=0),
     task: TaskUpdate,
 ):
-    # TODO ターゲットなしの場合、404を返す
     target_id = update_task_service(session=session, task_id=task_id, task=task)
+    if target_id is None:
+        raise HTTPException(status_code=404, detail=f"task(id={task_id}) not found")
     return {"id": target_id}
 
 
@@ -69,6 +70,7 @@ async def update_task(
 async def delete_task(
     *, session: Session = Depends(get_session), task_id: int = Path(..., ge=0)
 ):
-    # TODO ターゲットなしの場合、404を返す
-    deleted_id = delete_task_service(session=session, task_id=task_id)
-    return {"id": deleted_id}
+    target_id = delete_task_service(session=session, task_id=task_id)
+    if target_id is None:
+        raise HTTPException(status_code=404, detail=f"task(id={task_id}) not found")
+    return {"id": target_id}

@@ -78,6 +78,11 @@ def test_update_task_200_path(test_client: TestClient, mocker, path):
     ), f"path={path} must be valid"
 
 
+def test_update_task_404(test_client: TestClient, mocker):
+    mocker.patch(f"{MODULE_PATH}.update_task_service", return_value=None)
+    assert test_client.put(f"{TASK_API_PATH}/1", json.dumps({})).status_code == 404
+
+
 @pytest.mark.parametrize("path", [-1, "test"])
 def test_update_tasl_422_path(test_client: TestClient, path):
     assert (
@@ -98,6 +103,11 @@ def test_delete_task_200(test_client: TestClient, mocker, path):
     assert (
         test_client.delete(f"{TASK_API_PATH}/{path}").status_code == 200
     ), f"path={path} must be valid"
+
+
+def test_delete_task_404(test_client: TestClient, mocker):
+    mocker.patch(f"{MODULE_PATH}.delete_task_service", return_value=None)
+    assert test_client.delete(f"{TASK_API_PATH}/1").status_code == 404
 
 
 @pytest.mark.parametrize("path", [-1, "test"])
