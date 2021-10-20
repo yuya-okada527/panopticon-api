@@ -1,14 +1,15 @@
-from resources.seeds import INITIAL_DATA
+import pytest
+from domain.models.task_model import Task
 from services.task_service import search_tasks_service
 from sqlmodel import Session
 
 
-def test_search_tasks_service(session: Session):
-    # TODO フィクスチャー内でしか、データがうまく入らない。。。
-    for task in INITIAL_DATA["tasks"]:
+@pytest.mark.parametrize("args", [[0, 2, 5, 2], [1, 3, 4, 3], [3, 3, 5, 2]])
+def test_search_tasks_service_offset_limit(session: Session, args):
+    offset, limit, count, expected = args
+    for i in range(count):
+        task = Task(name=f"name{i}", status="todo")
         session.add(task)
-        session.commit()
-        session.refresh(task)
-    results, hit_num = search_tasks_service(session=session, offset=0, limit=2)
-    assert results == INITIAL_DATA["tasks"]
-    assert hit_num == 2
+    session.commit()
+    _, hit_num = search_tasks_service(session=session, offset=offset, limit=limit)
+    assert hit_num == expected

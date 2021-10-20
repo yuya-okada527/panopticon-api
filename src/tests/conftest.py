@@ -2,7 +2,6 @@ import pytest
 from app.main import app
 from domain.models.task_model import get_session
 from fastapi.testclient import TestClient
-from resources.seeds import seed_tables
 from sqlmodel.engine.create import create_engine
 from sqlmodel.main import SQLModel
 from sqlmodel.orm.session import Session
@@ -15,8 +14,6 @@ def session_fixture():
         "sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool
     )
     SQLModel.metadata.create_all(engine)
-    # with Session(engine) as pre_session:
-    #     seed_tables(pre_session)
     with Session(engine) as session:
         yield session
 
