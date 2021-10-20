@@ -54,6 +54,8 @@ async def update_task(
 
 
 @router.delete("/{task_id}", response_model=MutationResponse)
-async def delete_task(*, task_id: int = Path(..., ge=0)):
-    delete_task_service()
-    return {"id": task_id}
+async def delete_task(
+    *, session: Session = Depends(get_session), task_id: int = Path(..., ge=0)
+):
+    deleted_id = delete_task_service(session=session, task_id=task_id)
+    return {"id": deleted_id}
