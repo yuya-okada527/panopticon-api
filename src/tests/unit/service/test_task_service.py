@@ -47,7 +47,7 @@ def test_update_task_service_non_exist_task(session: Session):
     task_id = update_task_service(
         session=session, task_id=1, task=TaskUpdate.validate({"status": "doing"})
     )
-    assert task_id == None
+    assert task_id is None
 
 
 def test_delete_task_service_target_exist(session: Session):
@@ -55,9 +55,9 @@ def test_delete_task_service_target_exist(session: Session):
     session.commit()
     task_id = delete_task_service(session=session, task_id=1)
     assert task_id == 1
-    assert session.get(Task, 1) == None
+    assert session.get(Task, 1) is None
 
 
 def test_delete_task_service_if_target_not_exist(session: Session):
     task_id = delete_task_service(session=session, task_id=1)
-    assert task_id == None
+    assert task_id is None
