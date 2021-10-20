@@ -37,8 +37,8 @@ async def search_tasks(
 
 
 @router.post("", response_model=MutationResponse)
-async def create_task(*, task: TaskCreate):
-    task_id = create_task_service()
+async def create_task(*, session: Depends(get_session), task: TaskCreate):
+    task_id = create_task_service(session=session, task=task)
     return {"id": task_id}
 
 
