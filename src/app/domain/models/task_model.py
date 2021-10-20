@@ -37,11 +37,11 @@ class TaskUpdate(SQLModel):
         return v
 
 
-def create_db_and_tables(engine):
+def create_db_and_tables(engine):  # pragma: no cover
     SQLModel.metadata.create_all(engine)
     # TODO 初期データ作成
 
 
-async def get_session():
+async def get_session():  # pragma: no cover
     with Session(ENGINE) as session:
         yield session
