@@ -33,9 +33,17 @@ def test_update_task_service_exist_task(session: Session):
     session.add(target_task)
     session.commit()
     session.refresh(target_task)
-    update_task_service(
+    task_id = update_task_service(
         session=session, task_id=1, task=TaskUpdate.validate({"status": "doing"})
     )
     session.refresh(target_task)
+    assert task_id == 1
     assert target_task.status == "doing"
     assert target_task.name == "name"
+
+
+def test_update_task_service_non_exist_task(session: Session):
+    task_id = update_task_service(
+        session=session, task_id=1, task=TaskUpdate.validate({"status": "doing"})
+    )
+    assert task_id == None
