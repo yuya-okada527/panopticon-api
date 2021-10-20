@@ -2,6 +2,7 @@ import json
 
 import pytest
 from domain.enums.task_enum import TaskStatusEnum
+from domain.models.task_model import Task
 from fastapi.testclient import TestClient
 from tests.utils import TASK_API_PATH, make_url
 
@@ -108,7 +109,19 @@ def test_delete_task_422(test_client: TestClient, path):
 
 @pytest.mark.parametrize("path", [1])
 def test_read_task_200(test_client: TestClient, mocker, path):
-    # mocker.patch(f"{TASK_API_PATH}.read_task_service", return_value={"id": 0, "name": "name", "status": "todo"})
+    mocker.patch(
+        f"{MODULE_PATH}.read_task_service",
+        return_value=Task(id=1, name="name", status="todo"),
+    )
+    print(test_client.get(f"{TASK_API_PATH}/{path}"))
     assert (
         test_client.get(f"{TASK_API_PATH}/{path}").status_code == 200
+    ), f"path={path} must be invalid"
+
+
+@pytest.mark.parametrize("path", [-1, "str"])
+def test_read_task_422(test_client: TestClient, path):
+    print(test_client.get(f"{TASK_API_PATH}/{path}"))
+    assert (
+        test_client.get(f"{TASK_API_PATH}/{path}").status_code == 422
     ), f"path={path} must be invalid"
