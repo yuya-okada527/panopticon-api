@@ -10,6 +10,7 @@ class EnvEnum(Enum):
 
 class CoreSettings(BaseSettings):
     env: EnvEnum = EnvEnum.LOCAL
+    fe_domain: str = "http://localhost:8080"
 
 
 class DBSettings(BaseSettings):
