@@ -1,18 +1,22 @@
 from typing import List, Optional, Tuple
 
 from domain.models.task_model import Task, TaskCreate, TaskUpdate
-from sqlmodel import Session, select
+from sqlmodel import Session, desc, select
 
 
 def search_tasks_service(
-    *, session: Session, offset: int, limit: int
+    *, session: Session, offset: int, limit: int, order_keys: List[str] = ["status"]
 ) -> Tuple[List[Task], int]:
     """タスクを検索する
 
     Returns:
         Tuple[List, int]: タスクリスト, ヒット数
     """
-    results = session.exec(select(Task).offset(offset).limit(limit)).all()
+    statements = select(Task).offset(offset).limit(limit)
+    for order_key in order_keys:
+        # TODO 昇順・降順の制御
+        statements = statements.order_by(desc(Task.order_key(order_key)))
+    results = session.exec(statements).all()
     # TODO countのクエリを作る
     return results, len(results)
 
