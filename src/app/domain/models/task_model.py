@@ -14,6 +14,13 @@ class Task(SQLModel, table=True):
     name: str
     status: str
 
+    @classmethod
+    def order_key(cls, key: str):
+        return TASK_ORDER_KEY[key]
+
+
+TASK_ORDER_KEY = {"status": Task.status}
+
 
 class TaskCreate(SQLModel):
     name: str = Field(min_length=1, max_length=64)
