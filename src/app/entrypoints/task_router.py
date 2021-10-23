@@ -15,7 +15,7 @@ from services.task_service import (
 )
 from sqlmodel import Session
 
-router = APIRouter(prefix="/v1/tasks", tags=["tasks"])
+router = APIRouter(prefix="/v1/tasks", tags=["task"])
 
 
 @router.get("", response_model=SearchTasksResponse)
