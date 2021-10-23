@@ -4,8 +4,10 @@ import pytest
 from domain.enums.task_enum import TaskStatusEnum
 from domain.models.task_model import Task
 from fastapi.testclient import TestClient
-from tests.utils import TASK_API_PATH, make_url
+from tests.utils import make_url
 
+# 定数定義
+TASK_API_PATH = "/v1/tasks"
 MODULE_PATH = "entrypoints.task_router"
 
 

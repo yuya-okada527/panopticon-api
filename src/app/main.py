@@ -1,5 +1,5 @@
 from core.middleware import CORS
-from entrypoints import task_router
+from entrypoints import status_router, task_router
 from fastapi import FastAPI
 
 app = FastAPI(
@@ -8,6 +8,7 @@ app = FastAPI(
 
 # ルータ定義
 app.include_router(task_router.router)
+app.include_router(status_router.router)
 
 # ミドルウェア定義
 app.add_middleware(**CORS)
