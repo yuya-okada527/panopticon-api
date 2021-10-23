@@ -19,6 +19,7 @@ class Task(SQLModel, table=True):
         return TASK_ORDER_KEY[key]
 
 
+# TODO enumにする
 TASK_ORDER_KEY = {"status": Task.status}
 
 
