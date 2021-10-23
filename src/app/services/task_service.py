@@ -3,9 +3,15 @@ from typing import List, Optional, Tuple
 from domain.models.task_model import Task, TaskCreate, TaskUpdate
 from sqlmodel import Session, desc, select
 
+DEFAULT_ORDER_KEYS = ["status"]
+
 
 def search_tasks_service(
-    *, session: Session, offset: int, limit: int, order_keys: List[str] = ["status"]
+    *,
+    session: Session,
+    offset: int,
+    limit: int,
+    order_keys: List[str] = DEFAULT_ORDER_KEYS,
 ) -> Tuple[List[Task], int]:
     """タスクを検索する
 
