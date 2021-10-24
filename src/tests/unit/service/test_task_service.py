@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pytest
 from domain.models.task_model import Task, TaskCreate, TaskUpdate
 from services.task_service import (
@@ -15,6 +17,7 @@ def test_search_tasks_service_offset_limit(session: Session, args):
     offset, limit, count, expected = args
     for i in range(count):
         task = Task(name=f"name{i}", status="todo")
+        task.before_create()
         session.add(task)
     session.commit()
     _, hit_num = search_tasks_service(session=session, offset=offset, limit=limit)
@@ -24,17 +27,21 @@ def test_search_tasks_service_offset_limit(session: Session, args):
 # TODO order_keysのテストを追加
 
 
-def test_create_task_service(session: Session):
+def test_create_task_service(session: Session, freezer):
+    freezer.move_to("2021-10-23")
     task = TaskCreate(name="name", status="todo")
     task_id = create_task_service(session=session, task=task)
     db_task = session.get(Task, task_id)
     expected = task.dict()
     expected["id"] = task_id
+    expected["created_at"] = datetime(2021, 10, 23)
+    expected["updated_at"] = datetime(2021, 10, 23)
     assert expected == db_task.dict()
 
 
 def test_read_service(session: Session):
     target_task = Task(name="name", status="todo")
+    target_task.before_create()
     session.add(target_task)
     session.commit()
     session.refresh(target_task)
@@ -43,6 +50,7 @@ def test_read_service(session: Session):
 
 def test_update_task_service_exist_task(session: Session):
     target_task = Task(name="name", status="todo")
+    target_task.before_create()
     session.add(target_task)
     session.commit()
     session.refresh(target_task)
@@ -63,7 +71,9 @@ def test_update_task_service_non_exist_task(session: Session):
 
 
 def test_delete_task_service_target_exist(session: Session):
-    session.add(Task(name="name", status="todo"))
+    target_task = Task(name="name", status="todo")
+    target_task.before_create()
+    session.add(target_task)
     session.commit()
     task_id = delete_task_service(session=session, task_id=1)
     assert task_id == 1

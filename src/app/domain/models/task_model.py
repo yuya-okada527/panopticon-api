@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional
 
 from core.config import DB_SETTINGS
@@ -13,6 +14,21 @@ class Task(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     status: str
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
+
+    def before_create(self):
+        self.__set_created_at()
+        self.__set_updated_at()
+
+    def before_update(self):
+        self.__set_updated_at()
+
+    def __set_created_at(self):
+        self.created_at = datetime.now()
+
+    def __set_updated_at(self):
+        self.updated_at = datetime.now()
 
     @classmethod
     def order_key(cls, key: str):

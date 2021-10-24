@@ -42,7 +42,8 @@ def create_task_service(*, session: Session, task: TaskCreate) -> int:
     Returns:
         int: タスクID
     """
-    new_task = Task.from_orm(task)
+    new_task: Task = Task.from_orm(task)
+    new_task.before_create()
     session.add(new_task)
     session.commit()
     session.refresh(new_task)
