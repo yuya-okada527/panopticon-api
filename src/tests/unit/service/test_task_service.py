@@ -48,12 +48,14 @@ def test_read_service(session: Session):
     assert read_task_service(session=session, task_id=1) == target_task
 
 
-def test_update_task_service_exist_task(session: Session):
+def test_update_task_service_exist_task(session: Session, freezer):
+    freezer.move_to("2021-10-23")
     target_task = Task(name="name", status="todo")
     target_task.before_create()
     session.add(target_task)
     session.commit()
     session.refresh(target_task)
+    freezer.move_to("2021-10-24")
     task_id = update_task_service(
         session=session, task_id=1, task=TaskUpdate.validate({"status": "doing"})
     )
@@ -61,6 +63,8 @@ def test_update_task_service_exist_task(session: Session):
     assert task_id == 1
     assert target_task.status == "doing"
     assert target_task.name == "name"
+    assert target_task.created_at == datetime(2021, 10, 23)
+    assert target_task.updated_at == datetime(2021, 10, 24)
 
 
 def test_update_task_service_non_exist_task(session: Session):

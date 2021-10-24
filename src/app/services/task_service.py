@@ -63,6 +63,7 @@ def update_task_service(
         return None
     for key, value in task.dict(exclude_unset=True).items():
         setattr(target, key, value)
+    target.before_update()
     session.add(target)
     session.commit()
     return task_id
