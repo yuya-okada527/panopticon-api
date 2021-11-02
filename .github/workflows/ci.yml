@@ -10,7 +10,7 @@ on:
 
 jobs:
   check:
-    name: Check the source code
+    name: Check the Source Code
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
