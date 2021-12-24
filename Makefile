@@ -1,5 +1,5 @@
 run:
-	docker-compose up -d --remove-orphans
+	docker-compose exec web ./bin/start-local-env.sh
 down:
 	docker-compose down
 build:
