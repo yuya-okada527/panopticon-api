@@ -1,14 +1,24 @@
-# Panopticon API
+# README
 
-セルフモニタリングツール「Panopticon」のコア機能の API。
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-## 利用ツール
+Things you may want to cover:
 
-- 言語: Ruby3.0.2
-- フレームワーク: Ruby on Rails
-- データベース: MySQL
-- DB スキーマ管理: ridgepole
-- HTTP クライアント: faraday
-- テストフレームワーク: RSpec
-- シード作成: factory-bot
-- ドキュメント: OpenAPI
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
