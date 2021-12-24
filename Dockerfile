@@ -1,6 +1,6 @@
 FROM ruby:3.0.1
 
-ENV APP_ROOT="/app" \
+ENV APP_ROOT="/api" \
 		LANG=C.UTF-8	\
 		TZ=Asia/Tokyo
 
