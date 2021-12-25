@@ -16,4 +16,5 @@
 
 ## 開発環境
 
+- API: http://localhost:3000
 - DB クライアント: http://localhost:8888
