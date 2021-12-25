@@ -13,3 +13,7 @@
 - テストフレームワーク: RSpec
 - シード作成: factory-bot
 - ドキュメント: OpenAPI
+
+## 開発環境
+
+- DB クライアント: http://localhost:8888

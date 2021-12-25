@@ -21,6 +21,18 @@ services:
       - 3306:3306
     volumes:
       - mysql_data:/var/lib/mysql
-
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 8888:80
+    depends_on:
+      - db
+    links:
+      - db:db
+    environment:
+      PMA_HOST: "db"
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: pass
 volumes:
   mysql_data:
