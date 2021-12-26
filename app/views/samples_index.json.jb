@@ -1,4 +1,0 @@
-json = {
-  id: @sample[:id],
-  name: @sample[:name]
-}
