@@ -1,0 +1,10 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+create_table "task_providers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+  t.integer "project_id"
+  t.string "name", null: false, limit: 32
+  t.integer "provider_kind", null: false, default: 0, comment: "0: user, 1: github"
+  t.string "provider_url", limit: 128
+  t.datetime "updated_at"
+  t.datetime "created_at"
+end

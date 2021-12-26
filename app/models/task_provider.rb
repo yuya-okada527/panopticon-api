@@ -1,0 +1,2 @@
+class TaskProvider < ApplicationRecord
+end
