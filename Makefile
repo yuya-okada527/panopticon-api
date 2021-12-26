@@ -5,6 +5,8 @@ migrate:
 	docker-compose exec api rails db:create
 	docker-compose exec api ridgepole -c config/database.yml -E development -f db/Schemafile --apply
 	docker-compose exec api ridgepole -c config/database.yml -E test -f db/Schemafile --apply
+seed:
+	docker-compose exec api rails db:seed
 down:
 	docker-compose down
 build:
