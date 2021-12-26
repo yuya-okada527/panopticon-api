@@ -14,3 +14,5 @@ build:
 update:
 	docker-compose run api bundle
 	docker-compose build
+console:
+	docker-compose exec api rails console

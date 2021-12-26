@@ -19,8 +19,8 @@ services:
       MYSQL_ROOT_PASSWORD: pass
     ports:
       - 3306:3306
-    volumes:
-      - mysql_data:/var/lib/mysql
+    # volumes:
+    #   - mysql_data:/var/lib/mysql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     ports:
@@ -34,5 +34,5 @@ services:
       PMA_PORT: 3306
       PMA_USER: root
       PMA_PASSWORD: pass
-volumes:
-  mysql_data:
+# volumes:
+# mysql_data:

@@ -1,0 +1,12 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+create_table "tasks", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+  t.integer "project_id", null: false
+  t.integer "task_provider_id"
+  t.string "external_id", limit: 128
+  t.string "name", null: false, limit: 32
+  t.text "description", null: false
+  t.integer "status", comment: "0: created, 1: todo, 2: doing: 3: done, 4: closed"
+  t.datetime "updated_at", null: false
+  t.datetime "created_at", null: false
+end
