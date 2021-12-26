@@ -1,0 +1,6 @@
+json = @projects.map do |project|
+  {
+    id: project.id,
+    name: project.name
+  }
+end
