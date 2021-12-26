@@ -1,0 +1,9 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+create_table "task_status_histories", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+  t.integer "task_id"
+  t.integer "before_status"
+  t.integer "after_status"
+  t.datetime "updated_at"
+  t.datetime "created_at"
+end

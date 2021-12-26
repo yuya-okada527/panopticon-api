@@ -1,21 +1,36 @@
 # TODO: データの交換方法は変える
-# プロジェクト
+# データ初期化(暫定対応)
 Project.destroy_all
+Task.destroy_all
+TaskStatusHistory.destroy_all
 ActiveRecord::Base.connection.execute('ALTER TABLE projects AUTO_INCREMENT = 1')
+ActiveRecord::Base.connection.execute('ALTER TABLE tasks AUTO_INCREMENT = 1')
+ActiveRecord::Base.connection.execute('ALTER TABLE task_status_histories AUTO_INCREMENT = 1')
+
+# プロジェクト
 project = Project.new(name: "Local Project")
 project.save!
 
 # タスク
-Task.destroy_all
-ActiveRecord::Base.connection.execute('ALTER TABLE tasks AUTO_INCREMENT = 1')
 [
   {
     project_id: project.id,
     name: "task1",
     description: "# Task1\n\n- list1\n- list2",
-    status: 0
+    status: 1
   }
 ].each do |args|
   task = Task.new(**args)
   task.save!
+  # タスクステータス履歴
+  [
+    {
+      task_id: task.id,
+      before_status: 0,
+      after_status: 1
+    }
+  ].each do |args|
+    history = TaskStatusHistory.new(**args)
+    history.save!
+  end
 end

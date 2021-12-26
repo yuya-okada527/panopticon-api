@@ -2,3 +2,4 @@
 # vi: set ft=ruby :
 require 'projects.schema'
 require 'tasks.schema'
+require 'task_status_histories.schema'
