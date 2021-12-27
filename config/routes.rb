@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   # TaskProviders API
   get '/v1/projects/:project_id/task_providers', to: 'v1/task_providers#task_providers_get'
   post '/v1/projects/:project_id/task_providers', to: 'v1/task_providers#task_providers_post'
+  delete '/v1/projects/:project_id/task_providers/:task_provider_id', to: 'v1/task_providers#task_providers_task_provider_id_delete'
 end
