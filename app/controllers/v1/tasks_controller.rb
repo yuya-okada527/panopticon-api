@@ -3,10 +3,11 @@ class V1::TasksController < ApplicationController
   def tasks_get
     project_id = params[:project_id]
     status = params[:status]
-    # TODO name
+    keyword = params[:keyword]
     @tasks = Task
       .by_project_id(project_id)
       .by_status(status)
+      .by_keyword(keyword)
     render :template => 'tasks_get.json.jb'
   end
 

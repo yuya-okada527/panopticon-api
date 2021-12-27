@@ -12,6 +12,7 @@ class Task < ApplicationRecord
   scope :by_task_id, -> (task_id) { where(id: task_id) if task_id.present? }
   scope :by_project_id, -> (project_id) { where(project_id: project_id) if project_id.present? }
   scope :by_status, -> (status_list) { where(status: status_list) if status_list.present? }
+  scope :by_keyword, -> (keyword) { where('name like ?', "%#{sanitize_sql_like(keyword)}%") if keyword.present? }
 
   # instance method
   def external_url
