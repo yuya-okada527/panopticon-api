@@ -1,0 +1,8 @@
+# TODO layoutsにまとめる
+json = {
+  id: @task.id,
+  external_url: @task.external_url,
+  name: @task.name,
+  description: @task.description,
+  status: @task.status
+}
