@@ -1,4 +1,4 @@
 class TaskStatusHistory < ApplicationRecord
   # Relation
-  has_many :tasks, dependent: :destroy
+  belongs_to :task, dependent: :destroy
 end

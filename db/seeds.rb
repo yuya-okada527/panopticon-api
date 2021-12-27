@@ -21,6 +21,7 @@ task_provider.save!
 [
   {
     project_id: project.id,
+    task_provider_id: task_provider.id,
     name: "task1",
     description: "# Task1\n\n- list1\n- list2",
     status: 1

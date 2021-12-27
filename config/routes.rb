@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  get '/projects', to: 'projects#index'
+  get '/v1/projects', to: 'projects#index'
 end
