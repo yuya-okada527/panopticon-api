@@ -16,3 +16,5 @@ update:
 	docker-compose build
 console:
 	docker-compose exec api rails console
+rspec:
+	docker-compose exec api bundle exec rspec
