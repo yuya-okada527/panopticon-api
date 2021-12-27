@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   post '/v1/projects/:project_id/tasks', to:'v1/tasks#tasks_post'
   get '/v1/projects/:project_id/tasks/:task_id', to: 'v1/tasks#tasks_task_id_get'
   put '/v1/projects/:project_id/tasks/:task_id', to: 'v1/tasks#tasks_task_id_put'
+  put '/v1/projects/:project_id/tasks/:task_id/status', to: 'v1/tasks#tasks_task_id_status_put'
 end

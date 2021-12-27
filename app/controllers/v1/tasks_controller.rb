@@ -36,4 +36,21 @@ class V1::TasksController < ApplicationController
     render :template => 'tasks_task_id_put.json.jb', :locals => { :id => task.id }
   end
 
+  def tasks_task_id_status_put
+    before_status = params.require(:before_status)
+    after_status = params.require(:after_status)
+    task = Task
+      .by_project_id(params[:project_id])
+      .by_task_id(params[:task_id])
+      .by_status(before_status)
+      .first
+    task.status = before_status
+    status_history = TaskStatusHistory.new(task_id: task.id, before_status: before_status, after_status: after_status)
+    ActiveRecord::Base.transaction do
+      task.task_status_histories << status_history
+      task.save!
+    end
+    render :template => 'tasks_task_id_status_put', :locals => { :id => task.id }
+  end
+
 end

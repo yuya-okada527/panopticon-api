@@ -6,7 +6,7 @@ create_table "tasks", id: { type: :integer, unsigned: true }, charset: "utf8mb4"
   t.string "external_id", limit: 128
   t.string "name", null: false, limit: 32
   t.text "description", null: false
-  t.integer "status", comment: "0: created, 1: todo, 2: doing: 3: done, 4: closed"
+  t.integer "status", default: 0, comment: "0: created, 1: todo, 2: doing: 3: done, 4: closed"
   t.datetime "updated_at", null: false
   t.datetime "created_at", null: false
 end
