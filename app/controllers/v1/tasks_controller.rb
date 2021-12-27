@@ -26,6 +26,7 @@ class V1::TasksController < ApplicationController
   end
 
   def tasks_task_id_put
+    # TODO: project_idで絞るのは、共通にしても良いかも
     task = Task
       .by_project_id(params[:project_id])
       .by_task_id(params[:task_id])

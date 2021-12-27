@@ -1,0 +1,8 @@
+json = @task_providers.map do |task_provider|
+  {
+    id: task_provider.id,
+    name: task_provider.name,
+    provider_kind: task_provider.provider_kind,
+    provider_url: task_provider.provider_url
+  }
+end
