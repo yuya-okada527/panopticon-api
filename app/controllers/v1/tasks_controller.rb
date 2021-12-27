@@ -44,6 +44,7 @@ class V1::TasksController < ApplicationController
       .by_task_id(params[:task_id])
       .by_status(before_status)
       .first
+    # TODO この辺のハンドリング方法は、検討
     render json: {status: 404}, status: 404 if !task.present?
     task.status = after_status
     status_history = TaskStatusHistory.new(task_id: task.id, before_status: before_status, after_status: after_status)
