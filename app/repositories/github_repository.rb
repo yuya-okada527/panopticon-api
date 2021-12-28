@@ -3,13 +3,21 @@ class GithubRepository
   class << self
     def fetch_all_issues(orgs, repos, token)
       conn = connection("https://api.github.com")
-      res = conn.get "/repos/#{orgs}/#{repos}/issues" do |req|
-        req.params[:per_page] = 10
-        req.params[:page] = 1
-        req.headers["Authorization"] = "token #{token}"
+      github_issue_list = GithubIssueList.new
+      page = 1
+      while true do
+        pp page
+        res = conn.get "/repos/#{orgs}/#{repos}/issues" do |req|
+          req.params[:per_page] = 10
+          req.params[:page] = page
+          req.headers["Authorization"] = "token #{token}"
+        end
+        body = parse(res)
+        break if body.empty?
+        github_issue_list.extend!(body)
+        page += 1
       end
-      body = parse(res)
-      GithubIssueList.new(body)
+      github_issue_list
     end
 
     def connection(url)
