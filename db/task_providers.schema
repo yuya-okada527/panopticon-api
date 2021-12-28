@@ -4,7 +4,8 @@ create_table "task_providers", id: { type: :integer, unsigned: true }, charset: 
   t.integer "project_id", null: false
   t.string "name", null: false, limit: 32
   t.integer "provider_kind", null: false, default: 0, comment: "0: user, 1: github"
-  t.string "provider_url", limit: 128
+  t.string "organization", null: false, default: "", comment: "GitHubのorganization"
+  t.string "repository", null: false, default: "", comment: "GitHubのrepository"
   t.datetime "updated_at"
   t.datetime "created_at"
 end
