@@ -6,7 +6,6 @@ class GithubRepository
       github_issue_list = GithubIssueList.new
       page = 1
       while true do
-        pp page
         res = conn.get "/repos/#{orgs}/#{repos}/issues" do |req|
           req.params[:per_page] = 30
           req.params[:page] = page
