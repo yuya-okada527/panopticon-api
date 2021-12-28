@@ -8,7 +8,7 @@ class GithubRepository
       while true do
         pp page
         res = conn.get "/repos/#{orgs}/#{repos}/issues" do |req|
-          req.params[:per_page] = 10
+          req.params[:per_page] = 30
           req.params[:page] = page
           req.headers["Authorization"] = "token #{token}"
         end
@@ -16,6 +16,7 @@ class GithubRepository
         break if body.empty?
         github_issue_list.extend!(body)
         page += 1
+        break if page > 10000 # 無限ループ予防
       end
       github_issue_list
     end
