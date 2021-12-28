@@ -14,7 +14,13 @@ project = Project.new(name: "Local Project")
 project.save!
 
 # タスクプロバイダ
-task_provider = TaskProvider.new(project_id: project.id, name: "Panopticon API", provider_kind: 1, provider_url: "https://github.com/")
+task_provider = TaskProvider.new(
+  project_id: project.id,
+  name: "Panopticon API",
+  provider_kind: 1,
+  organization: "yuya-okada527",
+  repository: "panopticon-api"
+)
 task_provider.save!
 
 # タスク
