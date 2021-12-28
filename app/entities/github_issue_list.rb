@@ -14,7 +14,7 @@ class GithubIssueList
 
   def filter_by_assignees!(assignee)
     @github_issues = @github_issues.filter do |issue|
-      issue.assignees.includes(assignee)
+      issue.assignees.include?(assignee)
     end
   end
 
@@ -24,8 +24,9 @@ class GithubIssueList
         external_id: issue.number,
         external_url: issue.html_url
       )
-      task.name = issue.title
-      task.description = issue.body
+      task.name = issue.title || ""
+      task.description = issue.body || ""
+      task
     end
   end
 end
