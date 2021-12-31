@@ -46,5 +46,6 @@ class V1::TaskProvidersController < ApplicationController
         task.save!
       end
     end
+    render :template => 'task_providers_task_provider_id_sync_post.json.jb', :locals => { :id => task_provider.id }
   end
 end
