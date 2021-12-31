@@ -14,20 +14,29 @@ project = Project.new(name: "Local Project")
 project.save!
 
 # タスクプロバイダ
-task_provider = TaskProvider.new(
+api_task_provider = TaskProvider.new(
   project_id: project.id,
   name: "Panopticon API",
   provider_kind: 1,
   organization: "yuya-okada527",
   repository: "panopticon-api"
 )
-task_provider.save!
+api_task_provider.save!
+
+fe_task_provider = TaskProvider.new(
+  project_id: project.id,
+  name: "Panopticon FE",
+  provider_kind: 1,
+  organization: "yuya-okada527",
+  repository: "panopticon-fe"
+)
+fe_task_provider.save!
 
 # タスク
 [
   {
     project_id: project.id,
-    task_provider_id: task_provider.id,
+    task_provider_id: api_task_provider.id,
     name: "task1",
     description: "# Task1\n\n- list1\n- list2",
     status: 1
