@@ -31,9 +31,22 @@ class V1::TasksController < ApplicationController
       .by_project_id(params[:project_id])
       .by_task_id(params[:task_id])
       .first
+
+    # 遷移前後の状態を取得しておく
+    before_status = task.status
+    after_status = params[:status] if params[:status].present?
     task.name = params[:name] if params[:name].present?
     task.description = params[:description] if params[:description].present?
-    task.save!
+    task.status = after_status if after_status.present?
+    status_history = TaskStatusHistory.new(
+      task_id: task.id,
+      before_status: TaskStatusHistory.statuses[before_status],
+      after_status: TaskStatusHistory.statuses[after_status]
+    )
+    ActiveRecord::Base.transaction do
+      task.task_status_histories << status_history if task.will_save_change_to_status?
+      task.save!
+    end
     render :template => 'tasks_task_id_put.json.jb', :locals => { :id => task.id }
   end
 
