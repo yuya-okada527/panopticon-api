@@ -11,6 +11,7 @@ module Api
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
+    # CORS設定
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins "localhost:4000"
@@ -19,6 +20,9 @@ module Api
           methods: [:get, :post, :put, :patch, :delete, :options, :head]
       end
     end
+
+    # タイムゾーン
+    config.time_zone = "Tokyo"
 
     # Configuration for the application, engines, and railties goes here.
     #
