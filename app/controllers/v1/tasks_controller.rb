@@ -61,7 +61,11 @@ class V1::TasksController < ApplicationController
     # TODO この辺のハンドリング方法は、検討
     render json: {status: 404}, status: 404 if !task.present?
     task.status = after_status
-    status_history = TaskStatusHistory.new(task_id: task.id, before_status: before_status, after_status: after_status)
+    status_history = TaskStatusHistory.new(
+      task_id: task.id,
+      before_status: TaskStatusHistory.statuses[before_status],
+      after_status: TaskStatusHistory.statuses[after_status]
+    )
     ActiveRecord::Base.transaction do
       task.task_status_histories << status_history
       task.save!
